@@ -1,13 +1,10 @@
-import './App.css'
-import NoteCard from './components/NoteCard'
 
-function App() {
-  
 
+const App = () => {
   return (
-    <>
-    <NoteCard />
-    </>
+    <div>
+      Hello World
+    </div>
   )
 }
 
