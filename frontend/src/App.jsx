@@ -38,6 +38,13 @@ function App() {
 
   const handleUpdateNote = async (updatedNote) => {
     console.log("Updating Note:", updatedNote); //debug log
+    
+    if (!updatedNote.id) {
+      console.error("Error: Note ID is undefined.");
+      setError("Failed to update note. Note ID is missing.");
+      return;
+    }
+
     try {
       const response = await axios.put(`/api/notes/${updatedNote.id}`, {
         title: updatedNote.title,
@@ -63,6 +70,8 @@ function App() {
         await axios.delete(`/api/notes/${id}`);
         fetchNotes();
         setError(null);
+        // await axios.delete(`/api/notes/${id}`);
+        // setNotes(notes.filter((note) => note.id !== id));
       } catch (error) {
         console.error("Error deleting note:", error);
         setError("Failed to delete note. Please try again later.");
@@ -112,7 +121,11 @@ function App() {
             </h2>
             <NoteForm
               note={editingNote}
-              onSave={editingNote ? handleUpdateNote : handleAddNote}
+              onSave={(updatedNote) => 
+                editingNote 
+                    ? handleUpdateNote({...updatedNote, id: editingNote.id})
+                    : handleAddNote(updatedNote)
+              }
               onCancel={closeModal}
             />
           </div>
