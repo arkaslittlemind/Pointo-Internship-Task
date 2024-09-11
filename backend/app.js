@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: "https://pointo-internship-task.onrender.com",
+  origin: "https://pointo-internship-task-frontend.vercel.app/",
   methods: ["GET", "POST", "PUT", "DELETE"],
 }))
 
