@@ -2,23 +2,6 @@
 
 A full-stack notes-taking application built with React, Tailwind CSS, Vite, Node.js, Postgres (Neon DB), and Prisma.
 
-## Table of Contents
-
-- [NoteWise](#notewise)
-  - [Table of Contents](#table-of-contents)
-  - [Project Overview](#project-overview)
-  - [Features](#features)
-  - [Tech Stack](#tech-stack)
-    - [Frontend](#frontend)
-    - [Backend](#backend)
-  - [Project Structure](#project-structure)
-  - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-    - [Running the Application](#running-the-application)
-  - [API Endpoints](#api-endpoints)
-  - [Environment Variables](#environment-variables)
-
 ## Project Overview
 
 This project is a simple and efficient notes-taking app that allows users to create, read, update, and delete (CRUD) notes. The app has a clean and modern UI built with React and Tailwind CSS, and the backend is powered by Node.js, Postgres (using Neon DB), and Prisma ORM.
@@ -46,29 +29,6 @@ This project is a simple and efficient notes-taking app that allows users to cre
 - **Postgres (Neon DB):** Relational database to store notes.
 - **Prisma:** ORM to interact with the database.
 
-## Project Structure
-
-```plaintext
-.
-├── backend
-│   ├── prisma
-│   │   └── schema.prisma        # Prisma schema file
-│   ├── src
-│   │   ├── controllers          # Controllers for handling requests
-│   │   ├── routes               # API route definitions
-│   │   ├── services             # Business logic and interactions with the database
-│   │   ├── index.js             # Entry point for the backend server
-│   └── package.json             # Backend dependencies and scripts
-│
-├── frontend
-│   ├── src
-│   │   ├── components           # React components
-│   │   ├── pages                # Pages in the application
-│   │   ├── App.jsx              # Main React app component
-│   └── package.json             # Frontend dependencies and scripts
-│
-└── README.md                    # Project documentation
-```
 
 ## Getting Started
 
@@ -85,8 +45,8 @@ Make sure you have the following installed:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/notes-taking-app.git
-   cd notes-taking-app
+   git clone https://github.com/arkaslittlemind/Pointo-Internship-Task.git
+   cd Pointo-Internship-Task
    ```
 
 2. **Install dependencies:**
@@ -116,7 +76,7 @@ Make sure you have the following installed:
    npm run dev
    ```
 
-   This will start the backend server on `http://localhost:5000`.
+   This will start the backend server on `http://localhost:3000`.
 
 2. **Frontend:**
 
@@ -127,7 +87,7 @@ Make sure you have the following installed:
    npm run dev
    ```
 
-   This will start the frontend on `http://localhost:3000`.
+   This will start the frontend on `http://localhost:5173`.
 
 ## API Endpoints
 
@@ -146,4 +106,13 @@ Create a `.env` file in the `backend` directory to store environment variables:
 DATABASE_URL=your-neon-db-url
 ```
 
+## Additional Notes
+
+Database Migrations: If you're using Prisma, ensure that you have run the necessary database migrations (e.g., `npx prisma migrate dev`).
+
+## Future Improvements
+
+ 1. Fix the update note functionality. (currently not working)
+ 2. Add user authentication.
+ 3. The landing page is already created, but it is not linked to the main page. Need to add routing to the landing page.
 
