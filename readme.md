@@ -2,6 +2,9 @@
 
 A full-stack notes-taking application built with React, Tailwind CSS, Vite, Node.js, Postgres (Neon DB), and Prisma.
 
+![image](https://github.com/user-attachments/assets/3f322f23-dccc-4b21-af5c-089b3ea5f065)
+
+
 ## Project Overview
 
 This project is a simple and efficient notes-taking app that allows users to create, read, update, and delete (CRUD) notes. The app has a clean and modern UI built with React and Tailwind CSS, and the backend is powered by Node.js, Postgres (using Neon DB), and Prisma ORM.
@@ -115,4 +118,8 @@ Database Migrations: If you're using Prisma, ensure that you have run the necess
  1. Fix the update note functionality. (currently not working)
  2. Add user authentication.
  3. The landing page is already created, but it is not linked to the main page. Need to add routing to the landing page.
+
+## Screen Share Link-
+[https://www.loom.com/share/d8df914c389c4309a283fab9ec58f149?sid=8bcf7aa0-b8e0-4490-8176-4936a5599270](https://www.loom.com/share/d8df914c389c4309a283fab9ec58f149)
+
 
