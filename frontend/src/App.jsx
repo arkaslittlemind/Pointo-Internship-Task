@@ -1,18 +1,15 @@
-
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import NotesList from './components/NotesList';
-import NoteForm from './components/NoteForm';
-import './App.css'
-
-// const API_URL = '/api/notes';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import NotesList from "./components/NotesList";
+import NoteForm from "./components/NoteForm";
+import "./App.css";
 
 function App() {
-
   const [notes, setNotes] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingNote, setEditingNote] = useState(null);
-  
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     fetchNotes();
   }, []);
@@ -22,7 +19,8 @@ function App() {
       const response = await axios.get(`/api/notes`);
       setNotes(response.data);
     } catch (error) {
-      console.error('Error fetching notes:', error);
+      console.error("Error fetching notes:", error);
+      setError("Failed to fetch notes. Please try again later.");
     }
   };
 
@@ -31,29 +29,43 @@ function App() {
       await axios.post(`/api/notes`, note);
       fetchNotes();
       setIsModalOpen(false);
+      setError(null);
     } catch (error) {
-      console.error('Error adding note:', error);
+      console.error("Error adding note:", error);
+      setError("Failed to add note. Please try again later.");
     }
   };
 
-  const handleUpdateNote = async (note) => {
+  const handleUpdateNote = async (updatedNote) => {
+    console.log("Updating Note:", updatedNote); //debug log
     try {
-      await axios.put(`{note.id}`, note);
-      fetchNotes();
+      const response = await axios.put(`/api/notes/${updatedNote.id}`, {
+        title: updatedNote.title,
+        content: updatedNote.content,
+      });
+      console.log("Server response:", response.data); //debug log
+      setNotes(
+        notes.map((note) => (note.id === updatedNote.id ? response.data : note))
+      );
+
       setIsModalOpen(false);
+      setError(null);
       setEditingNote(null);
     } catch (error) {
-      console.error('Error updating note:', error);
+      console.error("Error updating note:", error.response?.data || error.message);
+      setError("Failed to update note. Please try again later.");
     }
   };
 
   const handleDeleteNote = async (id) => {
-    if (window.confirm('Are you sure you want to delete this note?')) {
+    if (window.confirm("Are you sure you want to delete this note?")) {
       try {
         await axios.delete(`/api/notes/${id}`);
         fetchNotes();
+        setError(null);
       } catch (error) {
-        console.error('Error deleting note:', error);
+        console.error("Error deleting note:", error);
+        setError("Failed to delete note. Please try again later.");
       }
     }
   };
@@ -61,12 +73,12 @@ function App() {
   const openModal = (note = null) => {
     setEditingNote(note);
     setIsModalOpen(true);
-  }
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setEditingNote(null);
-  }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -80,25 +92,34 @@ function App() {
         </button>
       </header>
 
-      {/* <p>Notes: {notes.length}</p> */}
-      <NotesList notes={notes} onDelete={handleDeleteNote} onEdit={openModal}/>
+      {error && (
+        <div
+          className="bg-red-300 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+          role="alert"
+        >
+          <strong className="font-bold">Error: </strong>
+          <span className="block sm:inline">{error}</span>
+        </div>
+      )}
+
+      <NotesList notes={notes} onDelete={handleDeleteNote} onEdit={openModal} />
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
-        <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-          <h2 className="text-xl font-bold mb-4">
-            {editingNote ? 'Edit Note' : 'Add Note'}
-          </h2>
-          <NoteForm
-            note={editingNote}
-            onSave={editingNote ? handleUpdateNote : handleAddNote}
-            onCancel={closeModal}
-          />
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <h2 className="text-xl font-bold mb-4">
+              {editingNote ? "Edit Note" : "Add Note"}
+            </h2>
+            <NoteForm
+              note={editingNote}
+              onSave={editingNote ? handleUpdateNote : handleAddNote}
+              onCancel={closeModal}
+            />
+          </div>
         </div>
-      </div>
       )}
     </div>
   );
 }
 
-export default App
+export default App;

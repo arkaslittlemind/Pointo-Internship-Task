@@ -2,14 +2,12 @@
 import { useEffect, useState } from "react";
 
 const NoteForm = ({ note, onSave, onCancel }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState(note?.title || "");
+  const [content, setContent] = useState(note?.content || "");
 
   useEffect(() => {
-    if (note) {
-      setTitle(note.title);
-      setContent(note.content);
-    }
+    setTitle(note?.title || "");
+    setContent(note?.content || "");
   }, [note]);
 
   const handleSubmit = (e) => {
@@ -18,7 +16,11 @@ const NoteForm = ({ note, onSave, onCancel }) => {
       alert("Title and content are required!");
       return;
     }
-    onSave({ title, content, id: note?.id });
+    onSave({
+      id: note ? note.id : undefined,
+      title: title.trim(),
+      content: content.trim(),
+    });
   };
 
   return (
