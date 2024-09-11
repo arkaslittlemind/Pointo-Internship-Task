@@ -2,11 +2,17 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
 const prisma = new PrismaClient();
 
 app.use(bodyParser.json());
+
+app.use(cors({
+  origin: "https://pointo-internship-task.onrender.com",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}))
 
 // GET /notes (fetch all notes)
 app.get("/api/notes", async (req, res) => {
