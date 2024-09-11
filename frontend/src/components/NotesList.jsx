@@ -5,7 +5,7 @@ const NotesList = ({ notes, onDelete, onEdit }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {notes.map((note) => (
-          <div key={note.id} className="bg-white p-4 rounded-lg shadow-md">
+          <div key={note.id} className="bg-white p-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg cursor-pointer">
             <h3 className="text-lg font-semibold mb-2">{note.title}</h3>
             <p className="text-gray-600 mb-4">{note.content.substring(0, 100)}...</p>
             <div className="flex justify-between items-center">
