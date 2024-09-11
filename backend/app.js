@@ -74,6 +74,7 @@ app.delete('/notes/:id', async (req, res) => {
     await prisma.note.delete({
       where: { id: parseInt(id) },
     });
+    console.log('Note deleted:', id);
     res.status(204).send();
   } catch (error) {
     if (error.code === 'P2025') {
