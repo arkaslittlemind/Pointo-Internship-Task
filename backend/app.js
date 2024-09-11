@@ -3,13 +3,15 @@ const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const bodyParser = require('body-parser');
 
+
 const app = express();
 const prisma = new PrismaClient();
+
 
 app.use(bodyParser.json());
 
 // GET /notes
-app.get('/notes', async (req, res) => {
+app.get('/api/notes', async (req, res) => {
   try {
     const notes = await prisma.note.findMany();
     res.json(notes);
@@ -20,7 +22,7 @@ app.get('/notes', async (req, res) => {
 });
 
 // POST /notes
-app.post('/notes', async (req, res) => {
+app.post('/api/notes', async (req, res) => {
   const { title, content } = req.body;
 
   if (!title || !content) {
@@ -40,7 +42,7 @@ app.post('/notes', async (req, res) => {
 });
 
 // PUT /notes/:id
-app.put('/notes/:id', async (req, res) => {
+app.put('/api/notes/:id', async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
 
@@ -67,7 +69,7 @@ app.put('/notes/:id', async (req, res) => {
 });
 
 // DELETE /notes/:id
-app.delete('/notes/:id', async (req, res) => {
+app.delete('/api/notes/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
